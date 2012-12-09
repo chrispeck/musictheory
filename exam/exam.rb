@@ -232,6 +232,51 @@ ex_count.times do
 	ex3_items.push this_item
 end
 
+########################
+# ex 4 Interval ID
+
+ex_count = 10
+
+intervals_from_c = {
+	'PU' => 'c',
+	'AU' => 'cs',
+	'd2' => 'dff',
+	'm2' => 'df',
+	'M2' => 'd',
+	'A2' => 'ds',
+	'd3' => 'eff',
+	'm3' => 'ef',
+	'M3' => 'e',
+	'A3' => 'es',
+	'd4' => 'ff',
+	'P4' => 'f',
+	'A4' => 'fs',
+	'd5' => "gf'",
+	'P5' => "g'",
+	'A5' => "gs'",
+	'd6' => "aff'",
+	'm6' => "af'",
+	'M6' => "a'",
+	'A6' => "as'",
+	'd7' => "bff'",
+	'm7' => "bf'",
+	'M7' => "b'",
+	'A7' => "bs'",
+	'd8' => "cf'",
+	'P8' => "c'",
+}
+
+my_intervals = intervals_from_c.keys.shuffle.slice 1..10
+ex4 = []
+
+my_intervals.each do |name|
+	note1 = "c"
+	note2 = intervals_from_c[name]
+	ex = {'note1' => note1, 'note2' => note2, 'name' => name}
+	ex4.push ex
+end
+	
+
 #write files for exam and answer key
 [false, true].each do |answer_key|
 

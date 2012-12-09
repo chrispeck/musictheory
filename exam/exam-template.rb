@@ -116,6 +116,39 @@
 	%> 
 		\line { "     <%= item_text %>" } %
 	<% end %>
+		\line { "   " } %another empty line
 	}
 }
 
+\markup {
+	\wordwrap { 4. Write a new note the given interval above the given note. 1 point each. }
+}
+
+\score {
+	\transpose c ef 
+	\relative c' {
+		\clef treble
+		\time 8/4
+	<% 
+		ex4.each do |ex|
+			if answer_key
+				name = ex['name']
+			else
+				name = '"   "'   
+			end
+	%>
+		\mark "<%=ex['name']%>"
+
+		<%=ex['note1']%>!='1
+
+		<% if !answer_key %> 
+		\hideNotes 
+		<% end %>
+
+		<%=ex['note2']%>!1
+		\unHideNotes
+		\bar "||" 
+
+	<% end %>
+	}
+}
