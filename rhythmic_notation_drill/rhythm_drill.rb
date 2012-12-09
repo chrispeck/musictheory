@@ -8,19 +8,19 @@ meters = {
 		'beats_per_bar' => 2,
 		'possible_values' => [2,4,6],
 	},
-	'4/4' => {
+	'2/4' => {
 		'pulses_per_beat' => 4,
-		'beats_per_bar' => 4,
+		'beats_per_bar' => 2,
 		'possible_values' => [1,2,2,4,4], #repeat values to make them more likely
 	},
 	'3/4' => {
 		'pulses_per_beat' => 4,
-		'beats_per_bar' => 4,
+		'beats_per_bar' => 3,
 		'possible_values' => [1,2,2,4,4], #repeat values to make them more likely
 	},
 }
 
-time = '3/4'
+time = '2/4'
 
 pulses_per_beat = meters[time]['pulses_per_beat']
 beats_per_bar = meters[time]['beats_per_bar']
