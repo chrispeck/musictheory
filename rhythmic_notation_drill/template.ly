@@ -12,22 +12,13 @@
 	ragged-bottom = ##t
 }
 
-my_rhythm = { 
-	\clef percussion
-	\time 2/4  
-	c8^"1." c16 c c c c8 | c8. c16 c16 c16 c8 | c4 c4 | c2  \bar "|." 
-	\break
-	\time 6/8
-	c4.^"2." c | c  c4 c8 | c c c  c c4 | c4 c8  c8 c4  \bar "|."
-}
-
 \include "rhythms.ly"
-
 
 \new Staff \relative c' {
 	\override Score.BarNumber #'stencil = ##f
 	\clef percussion
-	\time 6/8
+	
+	\override Staff.TimeSignature #'stencil = ##f
 
 	\override Staff.BarLine #'stencil = ##f
 	\autoBeamOff
@@ -36,7 +27,6 @@ my_rhythm = {
 
 \new Staff \relative c' { 
 	\clef percussion
-	\time 6/8
 
 	\autoBeamOff
 
@@ -52,7 +42,6 @@ my_rhythm = {
 
 \new Staff \relative c' {
 	\clef percussion
-	\time 6/8
 	\rhythms_with_ties
 }
 
