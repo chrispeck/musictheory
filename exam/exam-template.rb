@@ -64,9 +64,8 @@
 		tonic = this_key.last 
 
 		clef = clefs.shift
-
-		#make sure we're in the right octave for the clef
-		if clef=="treble"
+		#make sure we're in the right octave for the clef 
+		if clef=="treble" 
 			starting_note = "c'" 
 		elsif clef=="bass"
 			starting_note = "e," 
@@ -102,3 +101,21 @@
 	}
 }
 <%	end %>
+
+\markup {
+	\column {
+		\wordwrap { 3. Fill in the blank with the appropriate note or scale degree name. 1 point each.}
+		\line { "   " } %empty line for spacing
+	<%
+		ex3_items.each do |item|
+			if answer_key
+				item_text = item['answer']
+			else 
+				item_text = item['question']
+			end
+	%> 
+		\line { "     <%= item_text %>" } %
+	<% end %>
+	}
+}
+
