@@ -152,3 +152,58 @@
 	<% end %>
 	}
 }
+
+\markup {
+	\wordwrap { 5. Write each minor scale starting from the given tonic. Use the appropriate key signature with accidentals as needed. 2 points each. }
+}
+
+<% 
+	clefs = ex5_clefs.clone
+	forms = ex5_forms.clone
+	ex5_keys.each do |this_key| 
+		key_name = this_key.first 
+		tonic = this_key.last 
+
+		clef = clefs.shift
+		#make sure we're in the right octave for the clef 
+		if clef=="treble" 
+			octave_note = "f'" 
+		elsif clef=="bass"
+			octave_note = "a," 
+		end
+
+		form = forms.shift
+		notes = minor_forms[form].clone 
+		first_note = notes.shift
+%>
+
+\score {
+	\transpose a <%=tonic%> \new Staff {
+
+		% no time sig or barlines on either exam or key
+		\override Staff.BarLine #'stencil = ##f
+		\override Staff.TimeSignature #'stencil = ##f
+
+		<% if !answer_key %>
+		% no key signature on exam
+		\override Staff.KeySignature #'transparent = ##t
+		<% end %>
+
+		\clef <%=clef%> 
+		\key a \minor 
+
+		\relative <%=octave_note%> { 
+
+			%first note visible as an example on both exam and key 
+			<%=first_note%>?1^"<%=key_name%> <%=form%> minor"
+
+			<% if !answer_key %>
+			\hideNotes
+			<% end %>
+			<%=notes.join " "%>
+
+		}
+	}
+}
+<%	end %>
+

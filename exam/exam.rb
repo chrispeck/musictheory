@@ -276,6 +276,33 @@ my_intervals.each do |name|
 	ex4.push ex
 end
 	
+#######################
+# ex5 - minor scales 
+
+minor_keys = [
+	[ 'Eb', 'ef' ],
+	[ 'Bb', 'bf' ],
+	[ 'F', 'f' ],
+	[ 'C', 'c' ],
+	[ 'G', 'g' ],
+
+	[ 'B', 'b' ],
+	[ 'F#', 'fs' ],
+	[ 'C#', 'cs' ],
+	[ 'G#', 'gs' ],
+	[ 'D#', 'ds' ],
+]
+
+minor_forms = {
+	'harmonic' => %w(a b c d e f gs a gs f e d c b a),
+	'melodic' => %w(a b c d e fs gs a g! f! e d c b a)
+}
+
+#choose five keys for major scale question
+ex5_keys = minor_keys.shuffle.slice 0..4
+ex5_forms = %w(harmonic harmonic melodic melodic melodic).shuffle
+ex5_clefs = %w(treble treble treble bass bass).shuffle!
+
 
 #write files for exam and answer key
 [false, true].each do |answer_key|
