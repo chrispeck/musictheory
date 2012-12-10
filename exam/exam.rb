@@ -303,6 +303,24 @@ ex5_keys = minor_keys.shuffle.slice 0..4
 ex5_forms = %w(harmonic harmonic melodic melodic melodic).shuffle
 ex5_clefs = %w(treble treble treble bass bass).shuffle!
 
+###############################
+# ex 6 - pentatonic scales
+
+pentatonic_forms = {
+	'major' => %w(c d e g a c),
+	'minor' => %w(c ef f g bf c)
+}
+ex6_forms = %w(minor minor major).shuffle
+ex6_keys = []
+ex6_forms.each do |form|
+	if form=='major'
+		ex6_keys.push major_keys.shuffle.first
+	elsif form=='minor'
+		ex6_keys.push minor_keys.shuffle.first
+	end
+end
+ex6_clefs = %w(treble treble bass).shuffle!
+
 
 #write files for exam and answer key
 [false, true].each do |answer_key|

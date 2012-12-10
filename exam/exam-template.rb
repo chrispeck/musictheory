@@ -207,3 +207,59 @@
 }
 <%	end %>
 
+\markup {
+	\wordwrap { 6. Write each pentatonic scale starting from the given note. Use accidentals (not key signatures.) 2 points each. }
+}
+
+<% 
+	clefs = ex6_clefs.clone
+	forms = ex6_forms.clone
+	ex6_keys.each do |this_key| 
+		key_name = this_key.first 
+		tonic = this_key.last 
+
+		clef = clefs.shift
+		#make sure we're in the right octave for the clef 
+		if clef=="treble" 
+			octave_note = "c'" 
+		elsif clef=="bass"
+			octave_note = "e," 
+		end
+
+		form = forms.shift
+		notes = pentatonic_forms[form].clone 
+		first_note = notes.shift
+%>
+
+\score {
+	\transpose c <%=tonic%> \new Staff {
+
+		#(set-accidental-style 'dodecaphonic)
+
+		% no time sig or barlines on either exam or key
+		\override Staff.BarLine #'stencil = ##f
+		\override Staff.TimeSignature #'stencil = ##f
+
+		<% if !answer_key %>
+		% no key signature on exam
+		\override Staff.KeySignature #'transparent = ##t
+		<% end %>
+
+		\clef <%=clef%> 
+		%\key c \<%=form%>
+
+		\relative <%=octave_note%> { 
+
+			%first note visible as an example on both exam and key 
+			<%=first_note%>1^"<%=key_name%> <%=form%> pentatonic"
+
+			<% if !answer_key %>
+			\hideNotes
+			<% end %>
+			<%=notes.join " "%>
+
+		}
+	}
+}
+<%	end %>
+
