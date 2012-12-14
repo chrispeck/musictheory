@@ -1,8 +1,8 @@
 require 'erb' #templating
 require 'active_support/core_ext/enumerable.rb' #for array.sum
 
-title = "MUSI 1310 Practice Final Exam"
-base_name = "1310-final-practice"
+title = "MUSI 1310 Final Exam - Fall 2012 / Peck"
+base_name = "1310-final"
 exam_suffix = "-exam"
 key_suffix = "-key"
 
@@ -266,7 +266,10 @@ intervals_from_c = {
 	'P8' => "c'",
 }
 
+starting_notes = %w(b bf c cs d df e ef f fs)
+
 my_intervals = intervals_from_c.keys.shuffle.slice 1..10
+my_starting_notes = starting_notes.shuffle
 ex4 = []
 
 my_intervals.each do |name|
@@ -320,6 +323,37 @@ ex6_forms.each do |form|
 	end
 end
 ex6_clefs = %w(treble treble bass).shuffle!
+
+##############################
+# ex 7 - writing triads
+
+triads = {
+	"I" => %w(c e g),
+	"I 6" => %w(e g c),
+	"I 6 4" => %w(g c e),
+	"ii" => %w(d f a),
+	"ii 6" => %w(f a d),
+	"ii 6 4" => %w(a d f),
+	"iii" => %w(e g b),
+	"iii 6" => %w(g b e),
+	"iii 6 4" => %w(b e g),
+	"IV" => %w(f a c),
+	"IV 6" => %w(a c f),
+	"IV 6 4" => %w(c f a),
+	"V 7" => %w(g b d f),
+	"V 5 6" => %w(b d f g),
+	"V 4 3" => %w(d f g b),
+	"V 2" => %w(f g b d),
+	"vi" => %w(a c e),
+	"vi 6" => %w(c e a),
+	"vi 6 4" => %w(e a c),
+	"vii o" => %w(b d f),
+	"vii o 6" => %w(d f b),
+	"vii o 6 4" => %w(f b d),
+}
+
+ex7_triads = triads.keys.shuffle.slice 0..9
+
 
 
 #write files for exam and answer key

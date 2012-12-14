@@ -1,6 +1,8 @@
 \version "2.16.1" 
 \language "english"
 
+\include "roman_numerals.ly"
+
 \header {
 	title = "<%= title %>" 
 	<% if answer_key %>
@@ -12,6 +14,7 @@
 
 \paper {
 	indent = #0
+	%between-system-padding = #2
 	%ragged-right = ##t
 	ragged-bottom = ##t
 }
@@ -125,11 +128,11 @@
 }
 
 \score {
-	\transpose c ef 
 	\relative c' {
 		\clef treble
 		\time 8/4
 	<% 
+		trans_notes = my_starting_notes.clone
 		ex4.each do |ex|
 			if answer_key
 				name = ex['name']
@@ -139,6 +142,8 @@
 	%>
 		\mark "<%=ex['name']%>"
 
+		\transpose c <%= trans_notes.shift %> \relative c' { 
+
 		<%=ex['note1']%>!='1
 
 		<% if !answer_key %> 
@@ -146,6 +151,7 @@
 		<% end %>
 
 		<%=ex['note2']%>!1
+}
 		\unHideNotes
 		\bar "||" 
 
@@ -262,4 +268,173 @@
 	}
 }
 <%	end %>
+
+\markup {
+	\wordwrap { 7. Write a close position triad or dominant seventh chord from the given bass note corresponding to the given roman numeral in C major. 1 points each. }
+}
+
+\score {
+	\relative c' {
+
+<% ex7_triads.each do |rn|
+		notes = triads[rn].clone
+		bass = notes.shift
+		if !answer_key
+			notes = []
+		end
+%>
+		< <%=bass%>=' <%=notes.join " "%> >1_\markup \rN { <%=rn%> }
+
+	<%	end %>
+	}
+}
+
+\markup {
+	\wordwrap { 8. Label the following excerpt with roman numerals and chord symbols. The excerpt is in the major mode and contains only root position chords. 10 points. }
+	\fill-line { " " } %empty line
+}
+
+% Hymn: Dundee. Duckworth p. 265
+
+global = {
+	\key ef \major
+	\time 4/4
+}
+
+my_chords = \chordmode { 
+	\global 
+	<% if answer_key %>bf2 c:min | af bf | ef1<% end %> 
+}
+
+<% if answer_key
+		rns = %w(V vi IV V I)
+	else
+		rns = [' ',' ',' ',' ',' ']
+	end
+	%>
+
+roman_numerals = \lyricmode {
+	<% if answer_key %>\set stanza = #"B:     "<% end %>
+	<%	if answer_key
+			rns.each do |rn| %>
+				\markup \rN { <%=rn%> }
+	<% 	end
+		end%>
+}
+
+S = \relative c'' {
+	\global
+	f2 ef | ef d | ef1 \bar "|."
+}
+
+A = \relative c' {
+	\global
+	d2 ef | c bf | bf1 |
+}
+
+T = \relative c' {
+	\global
+	bf2 g | af f | g1 | 
+}
+
+B = \relative c {
+	\global
+	bf2 c | af bf | ef1 |
+}
+
+\score {
+
+	\transpose ef b \new PianoStaff <<
+		\new ChordNames \my_chords
+		\new Staff = "high" <<
+			\new Voice = "soprano" {
+				\voiceOne << \S >>
+		   }
+			\new Voice = "alto" {
+				\voiceTwo << \A >>
+		}
+		>>
+		\new Staff = "low" <<
+			\clef bass
+			\new Voice = "tenor" {
+				\voiceOne << \T >>
+			}
+			\new Voice = "bass" {
+				\voiceTwo << \B >>
+			}
+			\new Lyrics \lyricsto "bass" { \roman_numerals }
+		>>
+	>>
+}
+
+\markup {
+	\wordwrap { 9. Label the following excerpt with roman numerals (chord symbols not needed). The excerpt is in the major mode and may contain chords in inversion. Identify the cadence at the end of the excerpt. 10 points. }
+}
+
+% Hymn: Winchester New. Duckworth p. 266
+
+global = {
+	\key bf \major
+	\time 4/4
+	\partial 2
+}
+
+roman_numerals = \lyricmode {
+	<% if answer_key %>
+	\set stanza = #"Db:     "
+	\markup \rN { I }
+	\markup \rN { I 6 }
+	\markup \rN { IV }
+	\markup \rN { V }
+	\markup \rN { vi }
+	\markup \rN { ii 6 } %ii 6 5 in orig
+	\markup \rN { V 7 }
+	\markup \rN { I }
+	<% end %>
+}
+
+S = \relative c'' {
+	\global
+	% repeated bf changed to a c to get rid of ii65
+	d2 | bf g | f bf | c a<% if answer_key %>^"Authentic Cadence"<% end %> | bf1 \bar "|." 
+}
+
+A = \relative c' {
+	\global
+	f2 | f e | c b | c e | d1 
+}
+
+T = \relative c' {
+	\global
+	bf2 | bf bf | a g | g f | f1 
+}
+
+B = \relative c {
+	\global
+	bf2 | d ef | f g | ef g | bf,1
+}
+
+\score {
+	\transpose bf df \new PianoStaff <<
+		\new Staff = "high" <<
+			\new Voice = "soprano" {
+				\voiceOne << \S >>
+		   }
+			\new Voice = "alto" {
+				\voiceTwo << \A >>
+		}
+		>>
+		\new Staff = "low" <<
+			\clef bass
+			\new Voice = "tenor" {
+				\voiceOne << \T >>
+			}
+			\new Voice = "bass" {
+				\voiceTwo << \B >>
+			}
+			\new Lyrics \lyricsto "bass" { \roman_numerals }
+		>>
+	>>
+}
+
 
