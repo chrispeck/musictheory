@@ -1,8 +1,8 @@
 require 'erb' #templating
 require 'active_support/core_ext/enumerable.rb' #for array.sum
 
-title = "MUSI 1310 Practice Final Exam"
-base_name = "1310-final-practice"
+title = "MUSI 1310 Final Exam - Fall 2012 / Gale"
+base_name = "1310-final"
 exam_suffix = "-exam"
 key_suffix = "-key"
 
@@ -266,7 +266,10 @@ intervals_from_c = {
 	'P8' => "c'",
 }
 
+starting_notes = %w(b bf c cs d df e ef f fs)
+
 my_intervals = intervals_from_c.keys.shuffle.slice 1..10
+my_starting_notes = starting_notes.shuffle
 ex4 = []
 
 my_intervals.each do |name|
@@ -295,13 +298,64 @@ minor_keys = [
 
 minor_forms = {
 	'harmonic' => %w(a b c d e f gs a gs f e d c b a),
-	'melodic' => %w(a b c d e fs gs a g! f! e d c b a)
+	'melodic' => %w(a b c d e fs gs a g! f! e d c b a),
+	'natural' => %w(a b c d e f g a g f e d c b a)
 }
 
-#choose five keys for major scale question
-ex5_keys = minor_keys.shuffle.slice 0..4
-ex5_forms = %w(harmonic harmonic melodic melodic melodic).shuffle
-ex5_clefs = %w(treble treble treble bass bass).shuffle!
+#choose three keys for major scale question
+ex5_keys = minor_keys.shuffle.slice 0..2
+ex5_forms = %w(harmonic melodic natural).shuffle
+ex5_clefs = %w(treble treble bass).shuffle!
+
+###############################
+# ex 6 - pentatonic scales
+
+pentatonic_forms = {
+	'major pentatonic' => %w(c d e g a c),
+	'minor pentatonic' => %w(c ef f g bf c),
+	'blues' => %w(c ef f gf g bf c)
+}
+ex6_forms = ['minor pentatonic', 'blues'].shuffle
+ex6_keys = []
+ex6_forms.each do |form|
+	if form=='major pentatonic'
+		ex6_keys.push major_keys.shuffle.first
+	elsif form=='minor pentatonic' || form=='blues'
+		ex6_keys.push minor_keys.shuffle.first
+	end
+end
+ex6_clefs = %w(treble bass).shuffle!
+
+##############################
+# ex 7 - writing triads
+
+triads = {
+	"I" => %w(c e g),
+	"I 6" => %w(e g c),
+	"I 6 4" => %w(g c e),
+	"ii" => %w(d f a),
+	"ii 6" => %w(f a d),
+	"ii 6 4" => %w(a d f),
+	"iii" => %w(e g b),
+	"iii 6" => %w(g b e),
+	"iii 6 4" => %w(b e g),
+	"IV" => %w(f a c),
+	"IV 6" => %w(a c f),
+	"IV 6 4" => %w(c f a),
+	"V 7" => %w(g b d f),
+	"V 5 6" => %w(b d f g),
+	"V 4 3" => %w(d f g b),
+	"V 2" => %w(f g b d),
+	"vi" => %w(a c e),
+	"vi 6" => %w(c e a),
+	"vi 6 4" => %w(e a c),
+	"vii o" => %w(b d f),
+	"vii o 6" => %w(d f b),
+	"vii o 6 4" => %w(f b d),
+}
+
+ex7_triads = triads.keys.shuffle.slice 0..9
+
 
 
 #write files for exam and answer key
