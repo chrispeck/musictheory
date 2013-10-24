@@ -1,13 +1,14 @@
 require 'erb' #templating
 require 'active_support/core_ext/enumerable.rb' #for array.sum
 
-title = "MUSI 1310 Final Exam - Fall 2012 / Peck"
-base_name = "1310-final"
+base_name = "my_theory_test"
 exam_suffix = "-exam"
-key_suffix = "-key"
+key_suffix = "-anwer_key"
 
 #######################
-# ex1 - rhythms
+# rhythms - re-write the rhythm in the given time sig, with appropriate ties and beams
+
+
 
 bars_per_exercise = 6
 
@@ -362,7 +363,7 @@ ex7_triads = triads.keys.shuffle.slice 0..9
 	template = ERB.new IO.read "exam-template.rb"
 
 	if answer_key 
-		filename = base_name + key_suffix
+		filenam = base_name + key_suffix
 	else
 		filename = base_name + exam_suffix
 	end
