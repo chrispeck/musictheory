@@ -1,12 +1,13 @@
 require '1310.rb'
 
-exam = 1310.new(
+exam = TheoryExam.new(
 	:title => "My Final Exam",
 	:forms => 2 #each form of the exam will have different randomized items in each exercise
 )
 
 exam.addExercise(
 	:type => "rhythms",
+	:bars => 6,	#number of bars in each item
 	:items => 2
 )
 
