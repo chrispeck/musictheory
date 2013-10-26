@@ -1,4 +1,4 @@
-require '1310.rb'
+load "1310.rb"
 
 exam = TheoryExam.new(
 	:title => "My Final Exam",
@@ -35,7 +35,7 @@ exam.addExercise(
 
 exam.addExercise(
 	:type => "scales",
-	:scale => "pentatonic"
+	:scale => "pentatonic",
 	:items => 3
 )
 

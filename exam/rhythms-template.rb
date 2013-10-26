@@ -1,0 +1,36 @@
+\markup{
+	\wordwrap { 1. Re-write the rhythm in the given time signature. Use ties for note values that would cross beats or barlines. Beam notes appropriately for the time signature. 6 points each.}
+}
+<% rhythms.each do |rhythm| %>
+\new Staff \relative c' {
+	\override Score.BarNumber #'stencil = ##f
+	\clef percussion
+	
+	\override Staff.TimeSignature #'stencil = ##f
+
+	\override Staff.BarLine #'stencil = ##f
+	\autoBeamOff
+	<%= rhythm['no_ties'] %>
+}
+	<% if !answer_key %>
+\new Staff \relative c' { 
+	\clef percussion
+
+	\autoBeamOff
+
+	\override Score.BarNumber #'stencil = ##f
+	\override Staff.BarLine #'stencil = ##f
+	\override NoteHead #'transparent = ##t
+	\override Stem #'transparent = ##t
+	\override Flag #'transparent = ##t
+	\override Dots #'transparent = ##t
+	\override Tie #'transparent = ##t
+	<%= rhythm['with_ties'] %>
+}
+	<% elsif answer_key %>
+\new Staff \relative c' {
+	\clef percussion
+	<%= rhythm['with_ties'] %>
+}
+	<% end %>
+<% end %>
