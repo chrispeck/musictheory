@@ -1,5 +1,4 @@
 class TheoryExam
-
 	def initialize(params = {})
 		@exercises = []
 		@title = params[:title] || "My Exam"
@@ -8,13 +7,13 @@ class TheoryExam
 	end
 	
 	def addExercise(params = {})
-		@exercises.push Exercise.new
+		@exercises.push Exercise.new(params)
 	end
 
 	def generate()
 		n = 0 
 		@exercises.each do |ex|
-			puts n+=1 + ": " + ex.type
+			puts (n+=1).to_s + ": " + ex.type
 		end
 	end
 
