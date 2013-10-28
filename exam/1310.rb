@@ -16,10 +16,27 @@ class TheoryExam
 	end
 
 	def generate()
-		n = 0 
+
+		# generate and assemply ly markup for exercises
+		# should actually use a template here to add header and footer
+		# as well as perhaps a number for each ex?
+
+		ly = "" #exam in lilypond markup
 		@exercises.each do |ex|
-			puts ex.ly
+			ly = ly + ex.ly
 		end
+
+		filename = "my_exam"
+
+		output = File.open 'exams/' + filename + ".ly", 'w'
+		#output << template.result(binding)
+		output << ly
+		puts "writing " + filename
+		output.close
+
+		puts "compiling " + filename + " with LilyPond"
+		puts %x(lilypond -o exams/#{filename} exams/#{filename}.ly)
+
 	end
 end
 
