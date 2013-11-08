@@ -6,7 +6,7 @@ exam = TheoryExam.new(
 )
 
 exam.addExercise(
-	:type => "rhythms",
+	:type => "Rhythms",
 	:bars => 6,	#number of bars in each item
 	:items => 2
 )
