@@ -16,10 +16,10 @@ class TheoryExam
 		class_name = params[:type].capitalize
 		if class_exists?(class_name)
 			@exercises.push eval(class_name).new(params)
-			puts class_name + " created!"
+			puts "Success: " + class_name + " created!"
 		else
 			@exercises.push Default.new(params)
-			puts "No Class: " + class_name 
+			puts "Whoops! No exercise by the name of '" + class_name + "'" 
 		end
 	end
 
@@ -27,19 +27,12 @@ class TheoryExam
 
 		# generate and assemble ly markup for exercises
 
-		# should actually use a template here to add header and footer
-		# as well as perhaps a number for each ex?
-
-		ly = "" #exam in lilypond markup
-		@exercises.each do |ex|
-			ly = ly + ex.ly
-		end
-
 		filename = "my_exam"
+		template = ERB.new IO.read File.expand_path("../1310.ly.erb",__FILE__)
 
 		output = File.open 'exams/' + filename + ".ly", 'w'
-		#output << template.result(binding)
-		output << ly
+		output << template.result(binding)
+		#output << ly
 		puts "writing " + filename
 		output.close
 

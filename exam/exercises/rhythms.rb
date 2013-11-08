@@ -3,7 +3,6 @@ require 'active_support/core_ext/enumerable.rb' #for array.sum
 
 class Rhythms
 	def initialize (params={})
-		@type = params[:type] || "Unspecified Exercise Type"
 		@items = params[:items] || 1
 	end
 	def ly
