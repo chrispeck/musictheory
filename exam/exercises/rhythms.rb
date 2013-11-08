@@ -5,7 +5,7 @@ class Rhythms
 	def initialize (params={})
 		@items = params[:items] || 1
 	end
-	def ly
+	def generate #generate new form of exercise 
 		bars_per_exercise = 6
 
 		meters = {
@@ -49,7 +49,8 @@ class Rhythms
 			15 => "c2.~c8.",
 			16 => "c1"
 		}
-		rhythms = []
+		
+		@rhythms = []
 
 		meters.keys.shuffle.each do |time|
 			pulses_per_beat = meters[time]['pulses_per_beat']
@@ -113,11 +114,11 @@ class Rhythms
 				'with_ties' => ly_expr_with_ties,
 				'no_ties' => ly_expr_no_ties
 			}
-			rhythms.push this_rhythm
+			@rhythms.push this_rhythm
 		end
+	end
 
-		answer_key = true
-
+	def ly(answer_key = false)
 		#is there a better way to do this? should my templates be in a different place?
 		template = ERB.new IO.read File.expand_path("../rhythms.ly.erb",__FILE__)
 		template.result(binding)

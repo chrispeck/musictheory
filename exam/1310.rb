@@ -23,22 +23,32 @@ class TheoryExam
 		end
 	end
 
-	def generate()
+	def compile 
 
-		# generate and assemble ly markup for exercises
+		# generate exercises and compile pdf for each exam form
+		@form_count.times do |form_number|
+			form_number = form_number + 1 #start counting with 1
 
-		filename = "my_exam"
-		template = ERB.new IO.read File.expand_path("../1310.ly.erb",__FILE__)
+			@exercises.each do |ex| 
+				ex.generate
+			end
 
-		output = File.open 'exams/' + filename + ".ly", 'w'
-		output << template.result(binding)
-		#output << ly
-		puts "writing " + filename
-		output.close
+			[false, true].each do |answer_key|
+				filename = "my_exam"
+				filename = filename + "_form_" + form_number.to_s if @form_count > 1
+				filename = filename + "-key" if answer_key
+				template = ERB.new IO.read File.expand_path("../1310.ly.erb",__FILE__)
 
-		puts "compiling " + filename + " with LilyPond"
-		puts %x(lilypond -o exams/#{filename} exams/#{filename}.ly)
+				output = File.open 'exams/' + filename + ".ly", 'w'
+				output << template.result(binding)
+				#output << ly
+				puts "writing " + filename
+				output.close
 
+				puts "compiling " + filename + " with LilyPond"
+				puts %x(lilypond -o exams/#{filename} exams/#{filename}.ly)
+			end
+		end
 	end
 
 	#http://stackoverflow.com/questions/1187089/how-do-i-check-if-a-class-already-exists-in-ruby
@@ -51,7 +61,7 @@ class TheoryExam
 
 end
 
-#if there's any shared functionality required by exercises, maybe this could be an Exercise module instead, which can then be included in individual exercise classes?
+#if there's any shared functionality required by exercises, maybe this could be an Exercise module instead, which can then be included in individual exercise classes? Or maybe they should inherit from this class?
 class Exercise
 	attr_accessor :type
 

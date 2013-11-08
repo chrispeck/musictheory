@@ -2,9 +2,12 @@
 \language "english"
 
 \header {
-	title = "My Exam" 
-	
-	subtitle = "please use a pencil"
+	title = "My Exam, Form <%=form_number%>" 
+	<% if answer_key %>
+		subtitle = "answer key"
+	<% else %>
+		subtitle = "please use a pencil"
+	<% end %>
 }
 
 \paper {
@@ -15,7 +18,7 @@
 }
 
 <% @exercises.each do |ex| %>
-	<%=ex.ly%>
+	<%=ex.ly(answer_key)%>
 <% end %>
 
 \markup {

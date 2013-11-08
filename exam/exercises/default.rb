@@ -5,9 +5,11 @@ class Default
 		@type = params[:type] || "Unspecified Exercise Type"
 		@items = params[:items] || 1
 	end
-	def ly
-		#"No generator definition for exercise type '" + @type + "' yet!"
-		answer_key = true
+
+	def generate
+	end
+
+	def ly (answer_key = false)
 		template = ERB.new IO.read File.expand_path("../default.ly.erb",__FILE__)
 		template.result(binding)
 	end

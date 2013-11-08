@@ -55,4 +55,4 @@ exam.addExercise(
 	:name => "winchester" #reads 2 files: winchester.ly and winchester-key.ly
 )
 
-exam.generate
+exam.compile

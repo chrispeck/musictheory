@@ -1,7 +1,7 @@
 \markup{
 	\wordwrap { 1. Re-write the rhythm in the given time signature. Use ties for note values that would cross beats or barlines. Beam notes appropriately for the time signature. 6 points each.}
 }
-<% rhythms.each do |rhythm| %>
+<% @rhythms.each do |rhythm| %>
 \new Staff \relative c' {
 	\override Score.BarNumber #'stencil = ##f
 	\clef percussion
