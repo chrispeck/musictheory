@@ -1,12 +1,13 @@
 require 'erb' #templating
 require 'active_support/core_ext/enumerable.rb' #for array.sum
 
-class Rhythms
+class Rhythms < Exercise
 	def initialize (params={})
 		@items = params[:items] || 1
+		@bars = params[:bars] || 6
 	end
 	def generate #generate new form of exercise 
-		bars_per_exercise = 6
+		bars_per_exercise = @bars
 
 		meters = {
 			'6/8' =>	{ 
@@ -116,11 +117,5 @@ class Rhythms
 			}
 			@rhythms.push this_rhythm
 		end
-	end
-
-	def ly(answer_key = false)
-		#is there a better way to do this? should my templates be in a different place?
-		template = ERB.new IO.read File.expand_path("../rhythms.ly.erb",__FILE__)
-		template.result(binding)
 	end
 end

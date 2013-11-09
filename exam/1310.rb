@@ -1,9 +1,7 @@
 require 'erb' #templating
 require 'active_support/core_ext/enumerable.rb' #for array.sum
-require 'require_all'
+require 'require_all' #to allow each exercise def to live in its own file
 
-#load class definitions for individual exercise types
-require_rel 'exercises/*.rb'
 
 class TheoryExam
 	def initialize(params = {})
@@ -33,7 +31,7 @@ class TheoryExam
 				ex.generate
 			end
 
-			[false, true].each do |answer_key|
+			[false, true].each do |answer_key| #one pass for the exam, another for the key
 				filename = "my_exam"
 				filename = filename + "_form_" + form_number.to_s if @form_count > 1
 				filename = filename + "-key" if answer_key
@@ -63,24 +61,13 @@ end
 
 #if there's any shared functionality required by exercises, maybe this could be an Exercise module instead, which can then be included in individual exercise classes? Or maybe they should inherit from this class?
 class Exercise
-	attr_accessor :type
-
-	def initialize(params = {})
-		@type = params[:type] || "default"
-		@items = params[:type] || 1
-		
-		case params[:type]
-		when "rhythms"
-			@generator = Rhythms.new(params)
-			puts "Success! Rhythm exercise generator instantiated!"
-		else
-			@generator = Default.new(params)
-			puts "Warning: '" + params[:type] + "' is not a valid exercise type!"
-		end
+	def ly(answer_key = false)
+		#is there a better way to do this? should my templates be in a different place?
+		my_name = self.class.to_s.downcase
+		template = ERB.new IO.read File.expand_path("../exercises/" + my_name + ".ly.erb",__FILE__)
+		template.result(binding)
 	end
-
-	def ly
-		@generator.ly	
-	end
-
 end
+
+#load class definitions for individual exercise types
+require_rel 'exercises/*.rb'
