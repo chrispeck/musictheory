@@ -30,8 +30,12 @@
 		<% end %>
 
 		\clef <%=clef%> 
-		\key c \major
-		\mark "<%=key_name%> <%=@scale%>"
+
+		<% if @scale.include? "major" %>
+			\key c \major
+		<% elsif @scale.include? "minor" %>
+			\key c \minor
+		<% end %>
 
 		\relative <%=starting_note%> { 
 
@@ -49,11 +53,11 @@
 			<% when "harmonic minor" %>
 					d ef f g af b c
 			<% when "melodic minor" %>
-					d ef f g a b c bf af g f ef c
+					d ef f g a b c bf? af? g f ef c
 			<% when "major pentatonic" %>
 					d f g a c
 			<% when "minor pentatonic" %>
-					ef g a bf c
+					ef f g bf c
 			<% else %>
 				s^"<%=@scale%> is not a defined scale type!"
 			<% end %>
