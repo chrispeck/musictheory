@@ -35,14 +35,32 @@ exam.addExercise(
 
 exam.addExercise(
 	:type => "scales",
-	:scale => "minor",
-	:items => 5
+	:scale => "melodic minor",
+	:items => 2
 )
 
 exam.addExercise(
 	:type => "scales",
-	:scale => "pentatonic",
-	:items => 3
+	:scale => "harmonic minor",
+	:items => 2
+)
+
+exam.addExercise(
+	:type => "scales",
+	:scale => "natural minor",
+	:items => 2
+)
+
+exam.addExercise(
+	:type => "scales",
+	:scale => "minor pentatonic",
+	:items => 2
+)
+
+exam.addExercise(
+	:type => "scales",
+	:scale => "major pentatonic",
+	:items => 2
 )
 
 exam.addExercise(

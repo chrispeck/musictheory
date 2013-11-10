@@ -1,4 +1,3 @@
-require 'erb' #templating
 require 'active_support/core_ext/enumerable.rb' #for array.sum
 
 class Rhythms < Exercise
