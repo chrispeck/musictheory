@@ -2,7 +2,7 @@ require 'active_support/core_ext/enumerable.rb' #for array.sum
 
 class Rhythms < Exercise
 	def initialize (params={})
-		@items = params[:items] || 1
+		super(params)
 		@bars = params[:bars] || 6
 	end
 	def generate #generate new form of exercise 

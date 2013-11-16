@@ -1,6 +1,6 @@
 class Scales < Exercise
 	def initialize (params={})
-		@items = params[:items] || 1
+		super(params)
 		@scale = params[:scale] || "major"
 
 		# this was originally the possible keys for major scales

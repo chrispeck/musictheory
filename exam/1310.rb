@@ -61,6 +61,10 @@ end
 
 #if there's any shared functionality required by exercises, maybe this could be an Exercise module instead, which can then be included in individual exercise classes? Or maybe they should inherit from this class?
 class Exercise
+	def initialize (params={})
+		@type = params[:type] || "Unspecified Exercise Type"
+		@items = params[:items] || 1
+	end
 	def ly(answer_key = false)
 		#is there a better way to do this? should my templates be in a different place?
 		my_name = self.class.to_s.downcase

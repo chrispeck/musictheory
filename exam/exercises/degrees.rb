@@ -1,10 +1,4 @@
 class Degrees < Exercise
-	def initialize (params={})
-		@items = params[:items] || 1
-		@scale = params[:scale] || "major"
-
-	end
-
 	def generate #generate new form of exercise 
 
 		# ___ is the submediant of the G major scale.

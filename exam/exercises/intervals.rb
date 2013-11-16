@@ -1,9 +1,4 @@
 class Intervals < Exercise
-	def initialize (params={})
-		@type = params[:type] || "Unspecified Exercise Type"
-		@items = params[:items] || 1
-	end
-
 	def generate (answer_key = false)
 		intervals_from_c = {
 			'PU' => 'c',
