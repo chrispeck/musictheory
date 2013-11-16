@@ -29,14 +29,12 @@ exam.addExercise(
 	:items => 10
 )
 
-=end
 
 exam.addExercise(
 	:type => "intervals",
 	:items => 10
 )
 
-=begin
 
 exam.addExercise(
 	:type => "scales",
@@ -67,11 +65,13 @@ exam.addExercise(
 	:scale => "major pentatonic",
 	:items => 2
 )
+=end
 
 exam.addExercise(
 	:type => "triads",
 	:items => 10
 )
+=begin
 
 exam.addExercise(
 	:type => "analysis",
