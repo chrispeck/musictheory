@@ -23,18 +23,20 @@ exam.addExercise(
 	:scale => "major",
 	:items => 5
 )
-=end
 
 exam.addExercise(
 	:type => "degrees",
 	:items => 10
 )
-=begin
+
+=end
 
 exam.addExercise(
 	:type => "intervals",
 	:items => 10
 )
+
+=begin
 
 exam.addExercise(
 	:type => "scales",

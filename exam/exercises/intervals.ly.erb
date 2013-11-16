@@ -1,0 +1,36 @@
+\markup {
+	\wordwrap { Write a new note the given interval above the given note. }
+}
+
+\score {
+	\relative c' {
+		\clef treble
+		\time 8/4
+	<% 
+		trans_notes = @my_starting_notes.clone
+		@interval_items.each do |ex|
+			if answer_key
+				name = ex['name']
+			else
+				name = '"   "'   
+			end
+	%>
+		\mark "<%=ex['name']%>"
+
+		\transpose c <%= trans_notes.shift %> \relative c' { 
+
+		<%=ex['note1']%>!='1
+
+		<% if !answer_key %> 
+		\hideNotes 
+		<% end %>
+
+		<%=ex['note2']%>!1
+}
+		\unHideNotes
+		\bar "||" 
+
+	<% end %>
+	}
+}
+
