@@ -5,9 +5,6 @@ class Intervals < Exercise
 	end
 
 	def generate (answer_key = false)
-		########################
-		#Interval ID
-
 		intervals_from_c = {
 			'PU' => 'c',
 			'AU' => 'cs',
@@ -37,7 +34,6 @@ class Intervals < Exercise
 			'P8' => "c'",
 		}
 
-		#starting_notes = %w(b bf c cs d df e ef f fs)
 		starting_notes = %w(c cs df d ds ef e f fs g gs af a as bf b)
 
 		my_intervals = []
