@@ -17,7 +17,7 @@ class TheoryExam
 			puts "Success: " + class_name + " created!"
 		else
 			@exercises.push Default.new(params)
-			puts "Whoops! No exercise by the name of '" + class_name + "'" 
+			#puts "Whoops! No exercise by the name of '" + class_name + "'" 
 		end
 	end
 
@@ -65,10 +65,13 @@ class Exercise
 		@type = params[:type] || "Unspecified Exercise Type"
 		@items = params[:items] || 1
 	end
+
+	def generate
+	end
+
 	def ly(answer_key = false)
 		#is there a better way to do this? should my templates be in a different place?
-		my_name = self.class.to_s.downcase
-		template = ERB.new IO.read File.expand_path("../exercises/" + my_name + ".ly.erb",__FILE__)
+		template = ERB.new IO.read File.expand_path("../exercises/" + @type + ".ly.erb",__FILE__)
 		template.result(binding)
 	end
 end

@@ -66,15 +66,15 @@ exam.addExercise(
 	:items => 2
 )
 
-=end
-
 exam.addExercise(
 	:type => "triads",
 	:items => 10
 )
+=end
+
 
 exam.addExercise(
-	:type => "analysis",
+	:type => "analysis-winchester",
 	:name => "winchester" #reads 2 files: winchester.ly and winchester-key.ly
 )
 
