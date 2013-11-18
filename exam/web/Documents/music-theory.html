@@ -1,0 +1,17 @@
+<html> 
+	<head> 
+		<title>Music Theory Exam Generator</title> 
+	</head> 
+	<body>
+		<form method="POST" action="cgi-bin/exam/music-theory.rb" name="exam_info"> 
+			Exam Name: <input type="text" name="name"> <br> 
+			Exercise Type: <select name="type">
+				<option>rhythms</option>
+				<option>scales</option>
+				<option>degrees</option>
+			</select> <br>
+			Number of Items: <input type="text" name="items"> <br>
+			<input type="submit" name="Submit" value="Submit"> <br>
+		</form> 
+	</body> 
+</html>
