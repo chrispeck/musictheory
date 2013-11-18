@@ -5,7 +5,6 @@ exam = TheoryExam.new(
 	:forms => 2 #each form of the exam will have different randomized items in each exercise
 )
 
-=begin
 exam.addExercise(
 	:type => "rhythms",
 	:bars => 6,	#number of bars in each item
@@ -70,12 +69,9 @@ exam.addExercise(
 	:type => "triads",
 	:items => 10
 )
-=end
-
 
 exam.addExercise(
 	:type => "analysis-winchester",
-	:name => "winchester" #reads 2 files: winchester.ly and winchester-key.ly
 )
 
 exam.compile
