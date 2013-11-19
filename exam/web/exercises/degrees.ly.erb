@@ -1,0 +1,17 @@
+\markup {
+	\column {
+		\wordwrap { Fill in the blank with the appropriate note or scale degree name.}
+		\line { "   " } %empty line for spacing
+	<%
+		@degree_items.each do |item|
+			if answer_key
+				item_text = item['answer']
+			else 
+				item_text = item['question']
+			end
+	%> 
+		\line { "     <%= item_text %>" } %
+	<% end %>
+		\line { "   " } %another empty line for spacing
+	}
+}

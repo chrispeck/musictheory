@@ -1,0 +1,28 @@
+\version "2.16.1" 
+\language "english"
+
+\include "roman_numerals.ly"
+
+\header {
+	title = "My Exam, Form <%=form_number%>" 
+	<% if answer_key %>
+		subtitle = "answer key"
+	<% else %>
+		subtitle = "please use a pencil"
+	<% end %>
+}
+
+\paper {
+	indent = #0
+	%between-system-padding = #2
+	%ragged-right = ##t
+	ragged-bottom = ##t
+}
+
+<% @exercises.each do |ex| %>
+	<%=ex.ly(answer_key)%>
+<% end %>
+
+\markup {
+	\line { Thank you! }
+}

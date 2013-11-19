@@ -1,0 +1,19 @@
+\markup {
+	\wordwrap { Write a close position triad or dominant seventh chord from the given bass note corresponding to the given roman numeral in C major. }
+}
+
+\score {
+	\relative c' {
+
+<% @triads.each do |rn|
+		notes = @triad_types[rn].clone
+		bass = notes.shift
+		if !answer_key
+			notes = []
+		end
+%>
+		< <%=bass%>=' <%=notes.join " "%> >1_\markup \rN { <%=rn%> }
+
+	<%	end %>
+	}
+}

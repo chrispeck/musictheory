@@ -2,7 +2,7 @@ require 'sinatra'
 load '1310.rb'
 
 get '/' do #form for user to enter options
-	
+	erb :index
 end
 post '/' do #generate exam on post
 	exam = TheoryExam.new(
