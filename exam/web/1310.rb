@@ -1,6 +1,7 @@
 require 'erb' #templating
 require 'active_support/core_ext/enumerable.rb' #for array.sum
 require 'require_all' #to allow each exercise def to live in its own file
+require 'securerandom'
 
 
 class TheoryExam
@@ -22,6 +23,19 @@ class TheoryExam
 	end
 
 	def compile 
+		#@render_path = 'public/exams/' + SecureRandom.uuid + '/'
+		@uuid = SecureRandom.uuid
+
+		#url that user will download generated files from
+		@archive_url = "exams/#{@uuid}/#{@title}.tgz"
+
+		#randomly generated path for this exam
+		@base_render_path = "public/exams/#{@uuid}/"
+		puts %x(mkdir #{@base_render_path})
+
+		#path for generating ly and pdf files that will be archived for download
+		@render_path = @base_render_path + "#{@title}/"
+		puts %x(mkdir #{@render_path})
 
 		# generate exercises and compile pdf for each exam form
 		@form_count.times do |form_number|
@@ -37,16 +51,27 @@ class TheoryExam
 				filename = filename + "-key" if answer_key
 				template = ERB.new IO.read File.expand_path("../1310.ly.erb",__FILE__)
 
-				output = File.open 'exams/' + filename + ".ly", 'w'
+				output = File.open @render_path + filename + ".ly", 'w'
 				output << template.result(binding)
 				#output << ly
 				puts "writing " + filename
 				output.close
 
 				puts "compiling " + filename + " with LilyPond"
-				puts %x(lilypond -o exams/#{filename} exams/#{filename}.ly)
+				puts %x(lilypond -o #{@render_path}#{filename} #{@render_path}#{filename}.ly)
 			end
 		end
+
+		#make an archive of all generated files
+		old_pwd = Dir.pwd #revert to pwd after zipping...this was messing up Sinatra
+		Dir.chdir(@base_render_path)
+		puts %x(tar -cvzf #{@title}.tgz #{@title})
+		Dir.chdir(old_pwd)
+
+	end
+
+	def get_url
+		@archive_url
 	end
 
 	#http://stackoverflow.com/questions/1187089/how-do-i-check-if-a-class-already-exists-in-ruby
