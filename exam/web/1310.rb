@@ -1,7 +1,7 @@
 require 'erb' #templating
 require 'active_support/core_ext/enumerable.rb' #for array.sum
 require 'require_all' #to allow each exercise def to live in its own file
-require 'securerandom'
+require 'securerandom' #to generate uuid
 
 
 class TheoryExam
@@ -9,6 +9,8 @@ class TheoryExam
 		@exercises = []
 		@title = params[:title] || "My Exam"
 		@form_count = params[:forms] || 1
+
+		@name = @title.downcase.gsub("\s","_")
 	end
 
 	def addExercise(params = {})
@@ -27,14 +29,14 @@ class TheoryExam
 		@uuid = SecureRandom.uuid
 
 		#url that user will download generated files from
-		@archive_url = "exams/#{@uuid}/#{@title}.tgz"
+		@archive_url = "exams/#{@uuid}/#{@name}.tgz"
 
 		#randomly generated path for this exam
 		@base_render_path = "public/exams/#{@uuid}/"
 		puts %x(mkdir #{@base_render_path})
 
 		#path for generating ly and pdf files that will be archived for download
-		@render_path = @base_render_path + "#{@title}/"
+		@render_path = @base_render_path + "#{@name}/"
 		puts %x(mkdir #{@render_path})
 
 		# generate exercises and compile pdf for each exam form
@@ -46,7 +48,7 @@ class TheoryExam
 			end
 
 			[false, true].each do |answer_key| #one pass for the exam, another for the key
-				filename = "my_exam"
+				filename = @name 
 				filename = filename + "_form_" + form_number.to_s if @form_count > 1
 				filename = filename + "-key" if answer_key
 				template = ERB.new IO.read File.expand_path("../1310.ly.erb",__FILE__)
@@ -65,7 +67,7 @@ class TheoryExam
 		#make an archive of all generated files
 		old_pwd = Dir.pwd #revert to pwd after zipping...this was messing up Sinatra
 		Dir.chdir(@base_render_path)
-		puts %x(tar -cvzf #{@title}.tgz #{@title})
+		puts %x(tar -cvzf #{@name}.tgz #{@name})
 		Dir.chdir(old_pwd)
 
 	end
