@@ -1,0 +1,9 @@
+<html>
+	<body>
+		<% params.keys.each do |name| %>
+			<p><%=name%>: <%=params[name]%></p>
+		<% end %>
+		<p>Exam Generation Complete! <a href="<%=@exam.get_url%>">download (tgz archive)</a></p>
+		<p><a href="/">Create Another Exam</a>
+	</body>
+</html>
