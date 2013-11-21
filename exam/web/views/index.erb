@@ -20,10 +20,10 @@
 					$("form").children(".ex").last().children().children().children().first().text($txt)
 
 					//update form input ids
-					$name = "ex" + $ex_num + "_type"
+					$name = "ex_" + $ex_num + "_type"
 					$("form").children(".ex").last().children().children().first().attr("name", $name)
 
-					$name = "ex" + $ex_num + "_items"
+					$name = "ex_" + $ex_num + "_items"
 					$("form").children(".ex").last().children().children().last().attr("name", $name)
 
 				});
@@ -37,7 +37,7 @@
 			<div id="first_ex" class="ex">
 				<div class="ex">
 					<div>
-						<select name="ex1_type">
+						<select name="ex_1_type">
 							<option>Select Exercise 1 Type</option> 
 							<option>rhythms</option>
 							<option>scales</option>
@@ -45,7 +45,7 @@
 						</select>
 					</div>
 					<div>
-						Number of Items: <input type="text" name="ex1_items" \>
+						Number of Items: <input type="text" name="ex_1_items" \>
 					</div>
 				</div>
 			</div>

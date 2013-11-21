@@ -1,9 +1,18 @@
 <html>
 	<body>
-		<% params.keys.each do |name| %>
-			<p><%=name%>: "<%=params[name]%>"</p>
+		<div>Params:</div>
+		<% params.keys.each do |param| %>
+			<div><%=param%>: "<%=params[param]%>"</div>
 		<% end %>
-		<p>Exam Generation Complete! <a href="<%#@exam.get_url%>">download (tgz archive)</a></p>
+		Exam Name: "<%=@name%>"
+		<% @exercises.keys.each do |num| %> 
+			<div>Exercise <%=num%>: 
+				<% @exercises[num].keys.each do |param|%>
+					<div><%=param%>: "<%=@exercises[num][param]%>"</div>
+				<% end %>
+			</div>
+		<% end %>
+		<p>Exam Generation Complete! <a href="<%=@exam.get_url%>">download (tgz archive)</a></p>
 		<p><a href="/">Create Another Exam</a>
 	</body>
 </html>

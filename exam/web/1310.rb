@@ -14,7 +14,7 @@ class TheoryExam
 	end
 
 	def addExercise(params = {})
-		class_name = params[:type].capitalize
+		class_name = params[:type].to_s.capitalize
 		if class_exists?(class_name)
 			@exercises.push eval(class_name).new(params)
 			puts "Success: " + class_name + " created!"

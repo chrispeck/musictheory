@@ -6,17 +6,33 @@ get '/' do #form for user to enter options
 end
 post '/' do #generate exam on post
 
-=begin
+	@exercises = {}
+	params.keys.each do |param|
+		input = params[param]
+		param_arr = param.split("_")
+		case param_arr[0]
+		when 'name'
+			@name = input
+		when 'ex'
+			if @exercises[param_arr[1]].nil?
+				@exercises[param_arr[1]] = {}
+			end
+			@exercises[param_arr[1]][param_arr[2]] = input
+		else
+		end
+	end
 	@exam = TheoryExam.new(
-		:title => params[:name],
+		:title => @name,
 		:forms => 1 #each form of the exam will have different randomized items in each exercise
 	)
-	@exam.addExercise(
-		:type => params[:type],
-		:items => params[:items].to_i 
-	)
+	@exercises.keys.each do |num|
+		ex = @exercises[num]
+		@exam.addExercise(
+			:type => ex["type"],
+			:items => ex["items"].to_i 
+		)
+	end
 	@exam.compile
-=end
 
 	erb :response
 end
