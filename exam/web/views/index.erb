@@ -1,12 +1,57 @@
 <html>
-	<form method="POST"> 
-		Exam Name: <input type="text" name="name"> <br> 
-		Exercise Type: <select name="type">
-			<option>rhythms</option>
-			<option>scales</option>
-			<option>degrees</option>
-		</select> <br>
-		Number of Items: <input type="text" name="items"> <br>
-		<input type="submit" name="Submit"> <br>
-	</form> 
+	<head>
+		<script src="javascripts/jquery-1.10.2.js"></script>
+		<script>
+			$(document).ready(function(){
+
+				//store first set of exercise param inputs for cloning
+				$ex = $("#first_ex").contents();
+
+				//counter for number of exercises added
+				$ex_num = 1;
+
+				$("#addbutton").click(function() {
+					//make a new set of exercise param inputs based on first one
+					$("form").children(".ex").last().after($ex.clone());
+
+					//increment exercise number and update displayed text
+					$ex_num = $ex_num + 1;
+					$txt = "Select Exercise " + $ex_num + " Type"
+					$("form").children(".ex").last().children().children().children().first().text($txt)
+
+					//update form input ids
+					$name = "ex" + $ex_num + "_type"
+					$("form").children(".ex").last().children().children().first().attr("name", $name)
+
+					$name = "ex" + $ex_num + "_items"
+					$("form").children(".ex").last().children().children().last().attr("name", $name)
+
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<button id="addbutton">Add Exercise</button>
+		<form id="hideme" method="POST"> 
+			<div>Exam Name: <input type="text" name="name"> </div>
+			<div id="first_ex" class="ex">
+				<div class="ex">
+					<div>
+						<select name="ex1_type">
+							<option>Select Exercise 1 Type</option> 
+							<option>rhythms</option>
+							<option>scales</option>
+							<option>degrees</option>
+						</select>
+					</div>
+					<div>
+						Number of Items: <input type="text" name="ex1_items" \>
+					</div>
+				</div>
+			</div>
+			<div>
+				<input type="submit" name="Submit">
+			</div>
+		</form> 
+	</body>
 </html>

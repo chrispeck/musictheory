@@ -6,6 +6,7 @@ get '/' do #form for user to enter options
 end
 post '/' do #generate exam on post
 
+=begin
 	@exam = TheoryExam.new(
 		:title => params[:name],
 		:forms => 1 #each form of the exam will have different randomized items in each exercise
@@ -15,6 +16,7 @@ post '/' do #generate exam on post
 		:items => params[:items].to_i 
 	)
 	@exam.compile
+=end
 
 	erb :response
 end
