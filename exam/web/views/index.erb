@@ -5,10 +5,16 @@
 			$(document).ready(function(){
 
 				//store first set of exercise param inputs for cloning
-				$ex = $("#first_ex").contents();
+				$ex = $("#ex_select_prototype").contents();
 
 				//counter for number of exercises added
 				$ex_num = 1;
+
+				$("#addbutton").hover(function() {
+					$(this).toggleClass("button_hover");
+				});
+
+				update_ex_select_listeners();
 
 				$("#addbutton").click(function() {
 					//make a new set of exercise param inputs based on first one
@@ -26,32 +32,106 @@
 					$name = "ex_" + $ex_num + "_items"
 					$("form").children(".ex").last().children().children().last().attr("name", $name)
 
+					update_ex_select_listeners();
+
 				});
 			});
+
+			function update_ex_select_listeners() {
+				//add exercise-specific options when exercise type is selected
+				$(".ex_type_select").off("change"); //avoid accumulating duplicate listeners
+				$(".ex_type_select").on("change", function() { 
+					$type = $(this).children(":selected").text();
+					$(this).parent().siblings(":last").after($type + "<br>");
+				});
+			}
 		</script>
+		<style>
+			.button_hover {
+				color:red;
+				cursor:pointer;
+			}
+		</style>
 	</head>
 	<body>
-		<button id="addbutton">Add Exercise</button>
 		<form id="hideme" method="POST"> 
-			<div>Exam Name: <input type="text" name="name"> </div>
+			<div>Exam/Worksheet Name: <input type="text" name="name"> </div>
 			<div id="first_ex" class="ex">
 				<div class="ex">
-					<div>
-						<select name="ex_1_type">
+					<div class="ex_type">
+						<select name="ex_1_type" class="ex_type_select">
 							<option>Select Exercise 1 Type</option> 
 							<option>rhythms</option>
 							<option>scales</option>
 							<option>degrees</option>
 						</select>
 					</div>
-					<div>
-						Number of Items: <input type="text" name="ex_1_items" \>
+					<div class="ex_items">
+						<select name="ex_1_items">
+							<% 50.times do |n| %>
+								<option><%=n+1%></option>
+							<% end %>
+						</select>
+						item(s)
+					</div>
+					<div class="ex_type_options">
 					</div>
 				</div>
 			</div>
+			<div id="addbutton">Add Exercise</div>
 			<div>
 				<input type="submit" name="Submit">
 			</div>
 		</form> 
+
+
+		<div id="ex_select_prototype">
+			<div class="ex">
+				<div class="ex_type">
+					<select name="ex_1_type" class="ex_type_select">
+						<option>Select Exercise 1 Type</option> 
+						<option>rhythms</option>
+						<option>scales</option>
+						<option>degrees</option>
+					</select>
+				</div>
+				<div class="ex_items">
+					<select name="ex_1_items">
+						<% 50.times do |n| %>
+							<option><%=n+1%></option>
+						<% end %>
+					</select>
+					item(s)
+				</div>
+			</div>
+		</div>
+
+
+		<div id="ex_type_option_prototypes">
+			<div id="rhythm_options">
+				<select name="bars">
+					<option>4</option>
+					<option>8</option>
+					<option>16</option>
+				</select>
+				bars
+			</div>
+			<div id="scale_options">
+				<select name="scale">
+					<% scales = [
+						"major", 
+						"natural minor", 
+						"melodic minor", 
+						"harmonic minor", 
+						"minor pentatonic",
+						"major pentatonic",
+						"blues"
+					]
+					scales.each do |scale| %>
+						<option><%=scale%></option>
+					<% end %>
+				</select>
+			</div>
+		</div>
 	</body>
 </html>
