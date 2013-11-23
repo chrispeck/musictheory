@@ -14,6 +14,9 @@
 					$(this).toggleClass("button_hover");
 				});
 
+				//create the first exercise select
+				$("#first_ex").replaceWith($("#ex_select_prototype").children(":first"));
+
 				update_ex_select_listeners();
 
 				$("#addbutton").click(function() {
@@ -21,7 +24,7 @@
 					$("form").children(".ex").last().after($ex.clone());
 
 					//increment exercise number and update displayed text
-					$ex_num = $ex_num + 1;
+					$ex_num = parseInt($ex_num) + 1;
 					$txt = "Select Exercise " + $ex_num + " Type"
 					$("form").children(".ex").last().children().children().children().first().text($txt)
 
@@ -42,7 +45,17 @@
 				$(".ex_type_select").off("change"); //avoid accumulating duplicate listeners
 				$(".ex_type_select").on("change", function() { 
 					$type = $(this).children(":selected").text();
-					$(this).parent().siblings(":last").after($type + "<br>");
+					$options = $("#ex_type_options_prototypes").children("#" + $type);
+					$(this).parent().siblings(":last").replaceWith($options.clone());
+
+					//get exercise number by searching name attribute for first number
+					$ex_num = /\d+/.exec($(this).attr("name"))[0];
+
+					//modify name parameter for form elements in added options to reflect ex num
+					$(this).parent().siblings(":last").children().each(function() {
+						$(this).attr('name', $(this).attr('name').replace(/\d+/,$ex_num));
+					});
+
 				});
 			}
 		</script>
@@ -56,27 +69,7 @@
 	<body>
 		<form id="hideme" method="POST"> 
 			<div>Exam/Worksheet Name: <input type="text" name="name"> </div>
-			<div id="first_ex" class="ex">
-				<div class="ex">
-					<div class="ex_type">
-						<select name="ex_1_type" class="ex_type_select">
-							<option>Select Exercise 1 Type</option> 
-							<option>rhythms</option>
-							<option>scales</option>
-							<option>degrees</option>
-						</select>
-					</div>
-					<div class="ex_items">
-						<select name="ex_1_items">
-							<% 50.times do |n| %>
-								<option><%=n+1%></option>
-							<% end %>
-						</select>
-						item(s)
-					</div>
-					<div class="ex_type_options">
-					</div>
-				</div>
+			<div id="first_ex">
 			</div>
 			<div id="addbutton">Add Exercise</div>
 			<div>
@@ -103,21 +96,25 @@
 					</select>
 					item(s)
 				</div>
+				<div class="ex_type_options">
+				</div>
 			</div>
 		</div>
 
 
-		<div id="ex_type_option_prototypes">
-			<div id="rhythm_options">
-				<select name="bars">
+		<div id="ex_type_options_prototypes">
+			<div id="default">
+			</div>
+			<div id="rhythms">
+				<select name="ex_1_bars">
 					<option>4</option>
 					<option>8</option>
 					<option>16</option>
 				</select>
 				bars
 			</div>
-			<div id="scale_options">
-				<select name="scale">
+			<div id="scales">
+				<select name="ex_1_scale">
 					<% scales = [
 						"major", 
 						"natural minor", 
