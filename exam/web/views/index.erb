@@ -67,11 +67,17 @@
 				color:red;
 				cursor:pointer;
 			}
+			div.ex, div#addbutton {
+				padding:15;
+			}
+			input#worksheet_name {
+				width:400;
+			}
 		</style>
 	</head>
 	<body>
 		<form id="hideme" method="POST"> 
-			<div>Exam/Worksheet Name: <input type="text" name="name"> </div>
+			<div>Exam/Worksheet Name: <input id="worksheet_name" type="text" name="name"> </div>
 			<div>Number of Exam Forms: 
 				<select name="forms" />
 					<option>1</option>
@@ -83,7 +89,7 @@
 			</div>
 			<div id="addbutton">Add Exercise</div>
 			<div>
-				<input type="submit" name="Submit">
+				<input type="submit" name="submit" value="Generate Lilypond and PDF">
 			</div>
 		</form> 
 
