@@ -1,7 +1,7 @@
 class Scales < Exercise
 	def initialize (params={})
 		super(params)
-		@scale = params[:scale] || "major"
+		@scale = params["scale"] || "major"
 
 		# this was originally the possible keys for major scales
 		# do i need a separate list for each kind of scale?

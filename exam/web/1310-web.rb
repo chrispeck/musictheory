@@ -26,11 +26,7 @@ post '/' do #generate exam on post
 		:forms => 1 #each form of the exam will have different randomized items in each exercise
 	)
 	@exercises.keys.each do |num|
-		ex = @exercises[num]
-		@exam.addExercise(
-			:type => ex["type"],
-			:items => ex["items"].to_i 
-		)
+		@exam.addExercise(@exercises[num])
 	end
 	@exam.compile
 

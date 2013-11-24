@@ -14,7 +14,7 @@ class TheoryExam
 	end
 
 	def addExercise(params = {})
-		class_name = params[:type].to_s.capitalize
+		class_name = params["type"].to_s.capitalize
 		if class_exists?(class_name)
 			@exercises.push eval(class_name).new(params)
 			puts "Success: " + class_name + " created!"
@@ -89,8 +89,8 @@ end
 #if there's any shared functionality required by exercises, maybe this could be an Exercise module instead, which can then be included in individual exercise classes? Or maybe they should inherit from this class?
 class Exercise
 	def initialize (params={})
-		@type = params[:type] || "Unspecified Exercise Type"
-		@items = params[:items] || 1
+		@type = params["type"] || "Unspecified Exercise Type"
+		@items = params["items"].to_i || 1
 	end
 
 	def generate
