@@ -86,11 +86,13 @@
 					<option>1</option>
 					<option>2</option>
 					<option>3</option>
+					<option>4</option>
+					<option>5</option>
 				</select>
 			</div>
 			<div id="first_ex">
 			</div>
-			<div id="addbutton">Add Exercise</div>
+			<div id="addbutton">Add new exercise</div>
 			<div>
 				<input type="submit" name="submit" value="Generate Lilypond and PDF">
 			</div>
@@ -100,7 +102,7 @@
 		<div id="ex_select_prototype" style="visibility:hidden">
 			<div class="ex">
 				<div class="ex_type">
-					Exercise Type:
+					Exercise type:
 					<select name="ex_1_type" class="ex_type_select">
 						<option>select</option>
 						<option>analysis-winchester</option>
@@ -112,12 +114,12 @@
 					</select>
 				</div>
 				<div class="ex_items">
+					Number of items: 
 					<select name="ex_1_items">
 						<% 50.times do |n| %>
 							<option><%=n+1%></option>
 						<% end %>
 					</select>
-					item(s)
 				</div>
 				<div class="ex_type_options default">
 					<div name="ex_1_default">
@@ -129,14 +131,15 @@
 
 		<div id="ex_type_options_prototypes" style="visibility:hidden">
 			<div class="ex_type_options rhythms">
+				Bars per item: 
 				<select name="ex_1_bars">
 					<option>4</option>
 					<option>8</option>
 					<option>16</option>
 				</select>
-				bars
 			</div>
 			<div class="ex_type_options scales">
+				Scale type: 
 				<select name="ex_1_scale">
 					<% scales = [
 						"major", 

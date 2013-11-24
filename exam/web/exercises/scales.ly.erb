@@ -25,8 +25,13 @@
 		\override Staff.TimeSignature #'stencil = ##f
 
 		<% if !answer_key %>
+
 		% no key signature on exam
 		\override Staff.KeySignature #'transparent = ##t
+
+		% no floating accidentals (ie. for melodic minor) on exam
+		\override Voice.AccidentalCautionary #'stencil = ##f
+
 		<% end %>
 
 		\clef <%=clef%> 
