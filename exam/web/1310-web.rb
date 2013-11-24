@@ -13,7 +13,7 @@ post '/' do #generate exam on post
 		case param_arr[0]
 		when 'name'
 			@name = input
-		when 'ex'
+		when 'ex' #parse param names from form field names ie "ex_2_scale" etc
 			if @exercises[param_arr[1]].nil?
 				@exercises[param_arr[1]] = {}
 			end

@@ -15,7 +15,7 @@
 				});
 
 				//create the first exercise select
-				$("#first_ex").replaceWith($("#ex_select_prototype").children(":first"));
+				$("#first_ex").replaceWith($ex.clone());
 
 				update_ex_select_listeners();
 
@@ -23,17 +23,14 @@
 					//make a new set of exercise param inputs based on first one
 					$("form").children(".ex").last().after($ex.clone());
 
-					//increment exercise number and update displayed text
+					//increment exercise number
 					$ex_num = parseInt($ex_num) + 1;
-					$txt = "Select Exercise " + $ex_num + " Type"
-					$("form").children(".ex").last().children().children().children().first().text($txt)
 
 					//update form input ids
-					$name = "ex_" + $ex_num + "_type"
-					$("form").children(".ex").last().children().children().first().attr("name", $name)
-
 					$name = "ex_" + $ex_num + "_items"
-					$("form").children(".ex").last().children().children().last().attr("name", $name)
+					$("form").children(".ex:last").children().each( function() {
+						$(this).children(":first").attr('name', $(this).children(":first").attr('name').replace(/\d+/,$ex_num));
+					});
 
 					update_ex_select_listeners();
 
@@ -44,9 +41,16 @@
 				//add exercise-specific options when exercise type is selected
 				$(".ex_type_select").off("change"); //avoid accumulating duplicate listeners
 				$(".ex_type_select").on("change", function() { 
+
+					//retrieve options for selected ex type
 					$type = $(this).children(":selected").text();
-					$options = $("#ex_type_options_prototypes").children("#" + $type);
-					$(this).parent().siblings(":last").replaceWith($options.clone());
+					$options = $("#ex_type_options_prototypes").children("." + $type);
+
+					//if their are no options found for this ex type, insert default instead
+					if($options.length == 0) { 
+						$options = $("#ex_select_prototype").children().children(".ex_type_options");
+					} 
+					$(this).parent().siblings(".ex_type_options").replaceWith($options.clone());
 
 					//get exercise number by searching name attribute for first number
 					$ex_num = /\d+/.exec($(this).attr("name"))[0];
@@ -55,7 +59,6 @@
 					$(this).parent().siblings(":last").children().each(function() {
 						$(this).attr('name', $(this).attr('name').replace(/\d+/,$ex_num));
 					});
-
 				});
 			}
 		</script>
@@ -81,8 +84,9 @@
 		<div id="ex_select_prototype">
 			<div class="ex">
 				<div class="ex_type">
+					Exercise Type:
 					<select name="ex_1_type" class="ex_type_select">
-						<option>Select Exercise 1 Type</option> 
+						<option>select</option>
 						<option>rhythms</option>
 						<option>scales</option>
 						<option>degrees</option>
@@ -96,16 +100,16 @@
 					</select>
 					item(s)
 				</div>
-				<div class="ex_type_options">
+				<div class="ex_type_options default">
+					<div name="ex_1_default">
+					</div>
 				</div>
 			</div>
 		</div>
 
 
 		<div id="ex_type_options_prototypes">
-			<div id="default">
-			</div>
-			<div id="rhythms">
+			<div class="ex_type_options rhythms">
 				<select name="ex_1_bars">
 					<option>4</option>
 					<option>8</option>
@@ -113,7 +117,7 @@
 				</select>
 				bars
 			</div>
-			<div id="scales">
+			<div class="ex_type_options scales">
 				<select name="ex_1_scale">
 					<% scales = [
 						"major", 
