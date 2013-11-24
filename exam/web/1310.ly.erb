@@ -4,7 +4,7 @@
 \include "roman_numerals.ly"
 
 \header {
-	title = "My Exam, Form <%=form_number%>" 
+		title = "<%=@title%>, Form <%=form_number%>" 
 	<% if answer_key %>
 		subtitle = "answer key"
 	<% else %>

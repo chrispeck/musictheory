@@ -7,8 +7,8 @@ require 'securerandom' #to generate uuid
 class TheoryExam
 	def initialize(params = {})
 		@exercises = []
-		@title = params[:title] || "My Exam"
-		@form_count = params[:forms] || 1
+		@title = params["title"] || "My Exam"
+		@form_count = params["forms"] || 1
 
 		@name = @title.downcase.gsub("\s","_")
 	end

@@ -3,7 +3,7 @@ require 'active_support/core_ext/enumerable.rb' #for array.sum
 class Rhythms < Exercise
 	def initialize (params={})
 		super(params)
-		@bars = params[:bars] || 6
+		@bars = params["bars"].to_i || 6
 	end
 	def generate #generate new form of exercise 
 		bars_per_exercise = @bars
@@ -24,11 +24,11 @@ class Rhythms < Exercise
 			'beats_per_bar' => 3,
 			'possible_values' => [1,2,2,4,4], #repeat values to make them more likely
 		},
-		'4/4' => {
-			'pulses_per_beat' => 4,
-			'beats_per_bar' => 4,
-			'possible_values' => [2,4], #repeat values to make them more likely
-		},
+		#'4/4' => { #4/4 doesn't work so well yet
+		#	'pulses_per_beat' => 4,
+		#	'beats_per_bar' => 4,
+		#	'possible_values' => [2,4], #repeat values to make them more likely
+		#},
 		}
 
 		ly_notes_by_value = { 
@@ -52,7 +52,8 @@ class Rhythms < Exercise
 		
 		@rhythms = []
 
-		meters.keys.shuffle.each do |time|
+		@items.times do
+			time = meters.keys.shuffle.pop
 			pulses_per_beat = meters[time]['pulses_per_beat']
 			beats_per_bar = meters[time]['beats_per_bar']
 			pulses_per_bar = pulses_per_beat * beats_per_bar

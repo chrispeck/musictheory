@@ -22,8 +22,8 @@ post '/' do #generate exam on post
 		end
 	end
 	@exam = TheoryExam.new(
-		:title => @name,
-		:forms => 1 #each form of the exam will have different randomized items in each exercise
+		"title" => @name,
+		"forms" => 1 #each form of the exam will have different randomized items in each exercise
 	)
 	@exercises.keys.each do |num|
 		@exam.addExercise(@exercises[num])
