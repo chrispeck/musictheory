@@ -51,7 +51,7 @@ class TheoryExam
 				filename = @name 
 				filename = filename + "_form_" + form_number.to_s if @form_count > 1
 				filename = filename + "-key" if answer_key
-				template = ERB.new IO.read File.expand_path("../1310.ly.erb",__FILE__)
+				template = ERB.new IO.read File.expand_path("../ly/1310.ly.erb",__FILE__)
 
 				output = File.open @render_path + filename + ".ly", 'w'
 				output << template.result(binding)
