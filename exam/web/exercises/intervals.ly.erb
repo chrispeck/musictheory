@@ -2,6 +2,13 @@
 	\wordwrap { Write a new note the given interval above the given note. }
 }
 
+\layout {
+	\context {
+		\Score
+    	\remove "Bar_number_engraver"
+	}
+}
+
 \score {
 	\relative c' {
 		\clef treble

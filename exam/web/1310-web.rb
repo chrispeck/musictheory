@@ -13,6 +13,8 @@ post '/' do #generate exam on post
 		case param_arr[0]
 		when 'name'
 			@name = input
+		when 'forms'
+			@forms = input.to_i
 		when 'ex' #parse param names from form field names ie "ex_2_scale" etc
 			if @exercises[param_arr[1]].nil?
 				@exercises[param_arr[1]] = {}
@@ -23,7 +25,7 @@ post '/' do #generate exam on post
 	end
 	@exam = TheoryExam.new(
 		"title" => @name,
-		"forms" => 1 #each form of the exam will have different randomized items in each exercise
+		"forms" => @forms #number of randomized forms of exam
 	)
 	@exercises.keys.each do |num|
 		@exam.addExercise(@exercises[num])
