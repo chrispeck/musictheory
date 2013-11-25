@@ -1,6 +1,11 @@
 <html>
+	<head>
+		<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+		<link href="stylesheets/default.css" rel="stylesheet" type="text/css">
+	</head>
 	<body>
-		<p>Exam Generation Complete! <a href="<%=@exam.get_url%>">download (tgz archive)</a></p>
-		<p><a href="/">Create Another Exam</a>
+		<h1>Done!</h1> 
+		<p><a href="<%=@exam.get_url%>">Download "<%=@name%>" (PDF and LY files as tgz archive)</a></p>
+		<p><a href="/">Create Another Exam/Worksheet</a>
 	</body>
 </html>
