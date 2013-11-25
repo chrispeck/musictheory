@@ -12,3 +12,13 @@ div.ex, div#addbutton {
 input#worksheet_name {
 	width:400;
 }
+input {
+	margin:5;
+	padding:10;
+}
+select {
+	margin:5;
+}
+body {
+	margin:15;
+}
