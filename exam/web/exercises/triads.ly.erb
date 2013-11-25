@@ -2,6 +2,13 @@
 	\wordwrap { Write a close position triad or dominant seventh chord from the given bass note corresponding to the given roman numeral in C major. }
 }
 
+\layout {
+	\context {
+		\Score
+    	\remove "Bar_number_engraver"
+	}
+}
+
 \score {
 	\relative c' {
 
