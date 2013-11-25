@@ -7,6 +7,7 @@ div.ex, div#addbutton {
 	margin:15;
 	width:300;
 	background:lightblue;
+	border-radius:15;
 }
 input#worksheet_name {
 	width:400;
