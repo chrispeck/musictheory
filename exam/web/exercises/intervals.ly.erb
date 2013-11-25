@@ -13,6 +13,8 @@
 	\relative c' {
 		\clef treble
 		\time 8/4
+		\override Staff.TimeSignature #'stencil = ##f
+
 	<% 
 		trans_notes = @my_starting_notes.clone
 		@interval_items.each do |ex|
