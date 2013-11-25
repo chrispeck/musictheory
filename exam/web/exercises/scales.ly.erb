@@ -29,9 +29,6 @@
 		% no key signature on exam
 		\override Staff.KeySignature #'transparent = ##t
 
-		% no floating accidentals (ie. for melodic minor) on exam
-		\override Voice.AccidentalCautionary #'stencil = ##f
-
 		<% end %>
 
 		\clef <%=clef%> 
@@ -48,6 +45,8 @@
 
 			<% if !answer_key %>
 			\hideNotes
+			% no floating accidentals (ie. for melodic minor) on exam
+			\override Voice.AccidentalCautionary #'stencil = ##f
 			<% end %>
 
 			<% case @scale
