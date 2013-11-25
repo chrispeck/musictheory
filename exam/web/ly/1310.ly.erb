@@ -2,9 +2,15 @@
 \language "english"
 
 \include "ly/roman_numerals.ly"
+<% if @form_count> 1
+		my_title = @title + ", Form " + form_number.to_s
+	else
+		my_title = @title
+	end
+%>
 
 \header {
-		title = "<%=@title%>, Form <%=form_number%>" 
+		title = "<%=my_title%>" 
 	<% if answer_key %>
 		subtitle = "answer key"
 	<% else %>
